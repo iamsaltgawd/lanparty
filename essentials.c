@@ -1,5 +1,7 @@
 #include "essentials.h"
 
+
+
 #pragma region Liste
 
 void addAtBeginning(Node **head, Data v)
