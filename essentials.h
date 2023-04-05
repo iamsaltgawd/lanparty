@@ -2,22 +2,27 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+
 #pragma once
 
 
 
 #pragma region data_types
 
-typedef char Data;
+typedef struct Player {
+    char* firstName;
+    char* secondName;
+    int points;
+} player_t;
 
 typedef struct node {
     Data val;
     struct node* next;
-} Node;
+} Node_t;
 
 typedef struct {
-    Node *front, *rear;
-} Queue;
+    Node_t *front, *rear;
+} Queue_t;
 
 #pragma endregion data_types
 
@@ -25,9 +30,9 @@ typedef struct {
 
 #pragma region Liste
 
-void addAtBeginning(Node **head, Data v);
-void addAtEnd(Node** head, Data v);
-void display(Node *head);
+void addAtBeginning(Node_t **head, Data v);
+void addAtEnd(Node_t** head, Data v);
+void display(Node_t *head);
 
 #pragma endregion Liste
 
@@ -35,11 +40,11 @@ void display(Node *head);
 
 #pragma region Stive
 
-Data top(Node *top);
-void push(Node**top, Data v);
-Data pop(Node**top);
-int isEmpty(Node*top);
-void deleteStack(Node**top);
+Data top(Node_t *top);
+void push(Node_t**top, Data v);
+Data pop(Node_t**top);
+int isEmpty(Node_t*top);
+void deleteStack(Node_t**top);
 
 #pragma endregion Stive
 
@@ -47,15 +52,15 @@ void deleteStack(Node**top);
 
 #pragma region Cozi
 
-Queue* createQueue();
+Queue_t* createQueue();
 
-void enQueue(Queue*q, Data v);
+void enQueue(Queue_t*q, Data v);
  
-Data deQueue(Queue*q);
+Data deQueue(Queue_t*q);
 
-int isEmptyQ(Queue*q);
+int isEmptyQ(Queue_t*q);
 
-void deleteQueue(Queue*q);
+void deleteQueue(Queue_t*q);
 
 #pragma endregion Cozi
 

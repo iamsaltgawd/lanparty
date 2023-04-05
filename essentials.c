@@ -4,18 +4,18 @@
 
 #pragma region Liste
 
-void addAtBeginning(Node **head, Data v)
+void addAtBeginning(Node_t **head, Data v)
 {
-	Node* newNode = (Node*)malloc(sizeof(Node));
+	Node_t* newNode = (Node_t*)malloc(sizeof(Node_t));
 	newNode->val = v;
 	newNode->next = *head;
 	*head = newNode;
 }
 
-void addAtEnd(Node** head, Data v)
+void addAtEnd(Node_t** head, Data v)
 {
-	Node *aux=*head;
-	Node* newNode = (Node*)malloc(sizeof(Node)); 
+	Node_t *aux=*head;
+	Node_t* newNode = (Node_t*)malloc(sizeof(Node_t)); 
 	newNode->val = v; 
 	if (*head == NULL) addAtBeginning(&*head, v);
 	else{  
@@ -25,7 +25,7 @@ void addAtEnd(Node** head, Data v)
 	}
 }
 
-void display(Node *head)
+void display(Node_t *head)
 {
 	while (head!=NULL){
 		printf ("%d ", head->val);
@@ -37,33 +37,33 @@ void display(Node *head)
 #pragma endregion Liste
 
 #pragma region Stive
-Data top(Node *top){
+Data top(Node_t *top){
 	if (isEmpty(top)) return INT_MIN;
 	return top->val;
 } 
 
-void push(Node**top, Data v) {
-	Node* newNode=(Node*)malloc(sizeof(Node));
+void push(Node_t**top, Data v) {
+	Node_t* newNode=(Node_t*)malloc(sizeof(Node_t));
 	newNode->val=v;
 	newNode->next=*top;
 	*top=newNode;
 }
 
-Data pop(Node**top) {
+Data pop(Node_t**top) {
 	if (isEmpty(*top)) return INT_MIN;
-	Node *temp=(*top); 		
+	Node_t *temp=(*top); 		
 	Data aux=temp->val;	
 	*top=(*top)->next;      		
 	free(temp);
 	return aux;
 }
 
-int isEmpty(Node*top){
+int isEmpty(Node_t*top){
 	return top==NULL;
 }
 	
-void deleteStack(Node**top){
-	Node  *temp;
+void deleteStack(Node_t**top){
+	Node_t  *temp;
 	while (!isEmpty(*top)) {
 		temp=*top;
 		*top=(*top)->next;
@@ -74,16 +74,16 @@ void deleteStack(Node**top){
 #pragma endregion Stive
 
 #pragma region Cozi
-Queue* createQueue(){
-	Queue *q;
-	q=(Queue *)malloc(sizeof(Queue));
+Queue_t* createQueue(){
+	Queue_t *q;
+	q=(Queue_t *)malloc(sizeof(Queue_t));
 	if (q==NULL) return NULL;	
 	q->front=q->rear=NULL;
 	return q;	
 }
 
- void enQueue(Queue*q, Data v){
-	Node* newNode=(Node*)malloc(sizeof(Node));
+ void enQueue(Queue_t*q, Data v){
+	Node_t* newNode=(Node_t*)malloc(sizeof(Node_t));
 	newNode->val=v;
 	newNode->next=NULL;
 
@@ -95,8 +95,8 @@ Queue* createQueue(){
 	if (q->front==NULL) q->front=q->rear; 
 }
  
-Data deQueue(Queue*q) {  
-	Node* aux; Data d;
+Data deQueue(Queue_t*q) {  
+	Node_t* aux; Data d;
 	if (isEmptyQ(q)) return INT_MIN;
 	
 	aux=q->front; 
@@ -106,12 +106,12 @@ Data deQueue(Queue*q) {
 	return d;  	
 } 
 
-int isEmptyQ(Queue*q){
+int isEmptyQ(Queue_t*q){
 	return (q->front==NULL);
 }
 
-void deleteQueue(Queue*q){
-	Node* aux;
+void deleteQueue(Queue_t*q){
+	Node_t* aux;
 	while (!isEmptyQ(q)){
 		aux=q->front;
 		q->front=q->front->next;
