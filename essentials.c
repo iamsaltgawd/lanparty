@@ -2,122 +2,43 @@
 
 
 
-#pragma region Liste
+#pragma region functions
 
-void addAtBeginning(Node_t **head, Data v)
-{
-	Node_t* newNode = (Node_t*)malloc(sizeof(Node_t));
-	newNode->val = v;
-	newNode->next = *head;
-	*head = newNode;
+void addAtBeginning(team_t **head_ref, FILE *in_ref) {
+    team_t newTeam = (team_t *)malloc(sizeof(team_t));
+    char buffer[100];
+    int n;
+    fscanf(in_ref, "%d", &(newTeam->playerNum));
+    fgetc(in_ref);
+    fgets(buffer, 100, in_ref);
+    newTeam->teamName = (char *)malloc((strlen(buffer) + 1) * sizeof(char));
+    strcpy(newTeam->teamName, buffer);
+    newTeam->players = (player_t *)malloc(newTeam->playerNum * sizeof(player_t));
+    for (int i = 0; i < newTeam->playerNum; i++) {
+        fscanf(in_ref, "%s", buffer);
+        newTeam->players[i].firstName = 
+			(char *)malloc((strlen(buffer) + 1) * sizeof(char));
+        strcpy(newTeam->players[i].firstName, buffer);
+        fscanf(in_ref, "%s", buffer);
+        newTeam->players[i].lastName = 
+			(char *)malloc((strlen(buffer) + 1) * sizeof(char));
+        strcpy(newTeam->players[i].lastName, buffer);
+        fscanf(in_ref, "%d", &(newTeam->players[i].points));
+    }
+    newTeam->next = *head_ref;
+    *head_ref = newTeam;
 }
 
-void addAtEnd(Node_t** head, Data v)
-{
-	Node_t *aux=*head;
-	Node_t* newNode = (Node_t*)malloc(sizeof(Node_t)); 
-	newNode->val = v; 
-	if (*head == NULL) addAtBeginning(&*head, v);
-	else{  
-		while (aux->next!=NULL) aux = aux->next;
-		aux->next = newNode;  
-		newNode->next = NULL; 
-	}
-}
-
-void display(Node_t *head)
-{
-	while (head!=NULL){
-		printf ("%d ", head->val);
-		head=head->next;
+void displayTeams(team_t *head_ref) {
+	int i;
+    while (head_ref != NULL){
+		printf ("%s %d\n", head_ref->teamName, head_ref->playerNum);
+		for (i = 0; i < head_ref->playerNum; i++) {
+			printf("%s %s %d\n", head_ref->players[i].firstName, 
+				head_ref->players[i].lastName, head_ref->players[i].points);
+		}
+		head_ref = head_ref->next;
 	}
 	printf("\n");
 }
-
-#pragma endregion Liste
-
-#pragma region Stive
-Data top(Node_t *top){
-	if (isEmpty(top)) return INT_MIN;
-	return top->val;
-} 
-
-void push(Node_t**top, Data v) {
-	Node_t* newNode=(Node_t*)malloc(sizeof(Node_t));
-	newNode->val=v;
-	newNode->next=*top;
-	*top=newNode;
-}
-
-Data pop(Node_t**top) {
-	if (isEmpty(*top)) return INT_MIN;
-	Node_t *temp=(*top); 		
-	Data aux=temp->val;	
-	*top=(*top)->next;      		
-	free(temp);
-	return aux;
-}
-
-int isEmpty(Node_t*top){
-	return top==NULL;
-}
-	
-void deleteStack(Node_t**top){
-	Node_t  *temp;
-	while (!isEmpty(*top)) {
-		temp=*top;
-		*top=(*top)->next;
-		free(temp);
-	}
-}
-
-#pragma endregion Stive
-
-#pragma region Cozi
-Queue_t* createQueue(){
-	Queue_t *q;
-	q=(Queue_t *)malloc(sizeof(Queue_t));
-	if (q==NULL) return NULL;	
-	q->front=q->rear=NULL;
-	return q;	
-}
-
- void enQueue(Queue_t*q, Data v){
-	Node_t* newNode=(Node_t*)malloc(sizeof(Node_t));
-	newNode->val=v;
-	newNode->next=NULL;
-
-	if (q->rear==NULL) q->rear=newNode; 
-	else{
-		(q->rear)->next=newNode;
-		(q->rear)=newNode;
-	}
-	if (q->front==NULL) q->front=q->rear; 
-}
- 
-Data deQueue(Queue_t*q) {  
-	Node_t* aux; Data d;
-	if (isEmptyQ(q)) return INT_MIN;
-	
-	aux=q->front; 
-	d=aux->val;
-	q->front=(q->front)->next;
-	free(aux);
-	return d;  	
-} 
-
-int isEmptyQ(Queue_t*q){
-	return (q->front==NULL);
-}
-
-void deleteQueue(Queue_t*q){
-	Node_t* aux;
-	while (!isEmptyQ(q)){
-		aux=q->front;
-		q->front=q->front->next;
-		free(aux);
-	}
-	free(q);
-}	
-
-#pragma endregion Cozi
+#pragma endregion functions
