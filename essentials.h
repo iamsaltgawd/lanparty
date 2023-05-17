@@ -28,7 +28,7 @@ typedef struct team {
 #pragma region functions
 
 void addAtBeginning(team_t **head_ref, FILE *in_ref);
-
+void removeTeam(team_t **head_ref, team_t **rmnode);
 void displayTeams(team_t *head_ref, FILE *rout_ref);
 
 #pragma endregion functions

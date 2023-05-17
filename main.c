@@ -11,17 +11,16 @@ int main(int argc, char *argv[]) /// argv[1] = c.in; argv[2] = d.in; argv[3] = r
     fclose(f);
     FILE *rout = fopen(argv[3], "wt");
     team_t *head = NULL;
-    task1(&head, argv[2]);
-
+    int teamNum;
+    task1(&head, argv[2], &teamNum);
     if (tasks[0] == 1 && tasks[1] == 0) {
         displayTeams(head, rout);
     }
-    
-    task2(&head);
-    
-    if (tasks[1] == 1 && tasks[2] == 1) {
+
+    if (tasks[1] == 1 && tasks[0] == 1) {
+        task2(&head, &teamNum);
         displayTeams(head, rout);
     }
-    
+    fclose(rout);
     return 0;
 }

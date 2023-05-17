@@ -35,6 +35,26 @@ void addAtBeginning(team_t **head_ref, FILE *in_ref) {
     return;
 }
 
+void removeTeam(team_t **head_ref, team_t **rmnode) {
+    
+    if (*head_ref == *rmnode) {
+        team_t *temp = *head_ref;
+        *head_ref = (*head_ref)->next;
+        free(temp);
+        return;
+    } else {
+        team_t *p = *head_ref;
+        while (p->next != *rmnode) {
+            p = p->next;
+        }
+        team_t *temp = p->next;
+        p->next = p->next->next;
+        free(temp);
+        return;
+    }
+    return;  
+}
+
 void displayTeams(team_t *head_ref, FILE *rout_ref) {
 	int i;
     while (head_ref != NULL){
