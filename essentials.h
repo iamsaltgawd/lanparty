@@ -17,6 +17,7 @@ typedef struct team {
     char *teamName;
     int playerNum;
     player_t *players;
+    float teamPoints;
     struct team *next;
 } team_t;
 
@@ -28,7 +29,7 @@ typedef struct team {
 
 void addAtBeginning(team_t **head_ref, FILE *in_ref);
 
-void displayTeams(team_t *head_ref);
+void displayTeams(team_t *head_ref, FILE *rout_ref);
 
 #pragma endregion functions
 
