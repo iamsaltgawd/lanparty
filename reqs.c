@@ -39,5 +39,9 @@ void task2(team_t **head_ref, int *n) {
         (*n)--;
     }
 
+void task3() {
+    
+}
+
     return;
 }
