@@ -45,6 +45,9 @@ queue_t *createQueue();
 void enQueue(queue_t *q, team_t *team1, team_t *team2);
 match_t *deQueue(queue_t *q);
 int isEmpty(queue_t *q);
+void displayMatch(queue_t *queue, FILE *rout, int *n, team_t **wTeams_ref);
+void displayWinners(team_t *winners, int *n, FILE *rout);
+void whoWins(team_t *t1, team_t *t2, team_t **wTs, team_t **lTeams);
 
 #pragma endregion functions
 
