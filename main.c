@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) /// argv[1] = c.in; argv[2] = d.in; argv[3] = r
     }
 
     if (tasks[2] == 1) {
-        task3(head, rout);
+        task3(head, rout, teamNum);
     }
     fclose(rout);
     return 0;

@@ -22,6 +22,9 @@ void task2(team_t **head_ref, int *n) {
     int newNum;
     float minPoints;
     for (newNum = 1; newNum < (*n) / 2; newNum *= 2);
+    if (newNum * 2 == (*n)) {
+        return;
+    }
     team_t *p = NULL;
     team_t *delTeam = NULL;
     while (newNum < *n) {
@@ -42,18 +45,24 @@ void task2(team_t **head_ref, int *n) {
     return;
 }
 
-void task3(team_t *head_ref, FILE *rout) {
+void task3(team_t *head_ref, FILE *rout, int teamNum) {
     queue_t *queue = createQueue();
-    team_t *p = head_ref;
-    while (p != NULL) {
-        enQueue(queue, p, p->next);
-        p = p->next->next;
-    }
-    match_t *aux;
-    while (!isEmpty(queue)){
-		aux = queue->front;
-		queue->front = queue->front->next;
-        fprintf(rout, "\n%s\n%s\n", aux->team1->teamName, aux->team2->teamName);
-    }
-    
+    int n = 1;
+    team_t *wTeams = head_ref;
+    while (teamNum != 1) {
+        while (wTeams != NULL) {
+            enQueue(queue, wTeams, wTeams->next);
+            wTeams = wTeams->next->next;
+        }
+        wTeams = NULL;
+        displayMatch(queue, rout, &n, &wTeams);
+        displayWinners(wTeams, &n, rout);
+
+        if (teamNum == 8) {
+            
+        }
+        n++;
+        teamNum /= 2;
+    } 
+    return;
 }

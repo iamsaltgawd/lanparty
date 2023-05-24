@@ -12,6 +12,15 @@ void addAtBeginning(team_t **head_ref, FILE *in_ref) {
     fgetc(in_ref);
     fgets(buffer, 255, in_ref);
     buffer[strlen(buffer) - 1] = '\0';
+    if (buffer[strlen(buffer) - 1] == ' ') {
+        buffer[strlen(buffer) - 1] = '\0';
+    }
+    if (buffer[strlen(buffer) - 2] == ' ') {
+        buffer[strlen(buffer) - 2] = '\0';
+    }
+    if (buffer[strlen(buffer) - 1] == '\r') {
+        buffer[strlen(buffer) - 1] = '\0';
+    }
     newTeam->teamName = (char *)malloc((strlen(buffer) + 1) * sizeof(char));
     strcpy(newTeam->teamName, buffer);
     newTeam->players = (player_t *)malloc(newTeam->playerNum * sizeof(player_t));
@@ -107,6 +116,72 @@ match_t *deQueue(queue_t *q) {
 
 int isEmpty(queue_t *q){
 	return (q->front == NULL);
+}
+
+void displayMatch(queue_t *queue, FILE *rout, int *n, team_t **wTeams_ref) {
+    int n1, n2, i;
+    team_t *lTeams = NULL, *aux = NULL;
+    fprintf(rout, "\n--- ROUND NO:%d\n", *n);
+    while (!isEmpty(queue)){
+        n1 = 33 - strlen(queue->front->team1->teamName);
+        n2 = 33 - strlen(queue->front->team2->teamName);
+        fprintf(rout, "%s", queue->front->team1->teamName);
+        for(i = 0; i < n1; i++) {
+            fprintf(rout, " ");
+        }
+        fprintf(rout, "-");
+        for (i = 0; i < n2; i++) {
+            fprintf(rout, " ");
+        }
+        fprintf(rout, "%s\n", queue->front->team2->teamName);
+
+        whoWins(queue->front->team1, queue->front->team2, wTeams_ref, &lTeams);
+        (*wTeams_ref)->teamPoints += 1;
+        for (i = 0; i < (*wTeams_ref)->playerNum; i++) {
+            (*wTeams_ref)->players[i].points += 1;
+        }
+
+        queue->front = queue->front->next;
+    }
+    
+    while (lTeams != NULL) {
+        aux = lTeams;
+        lTeams = lTeams->next;
+        free(aux);
+    }
+    
+    return;
+}
+
+void whoWins(team_t *t1, team_t *t2, team_t **wTs, team_t **lTeams) {
+    if (t1->teamPoints > t2->teamPoints) {
+        t1->next = *wTs;
+        *wTs = t1;
+        t2->next = *lTeams;
+        *lTeams = t2;
+        return;
+    }
+    t2->next = *wTs;
+    *wTs = t2;
+    t1->next = *lTeams;
+    *lTeams = t1;
+    return;
+}
+
+void displayWinners(team_t *winners, int *n, FILE *rout) {
+    fprintf(rout, "\nWINNERS OF ROUND NO:%d\n", *n);
+    team_t *p = winners;
+    while (p != NULL){
+        int n1 = 34 - strlen(p->teamName);
+        fprintf(rout, "%s", p->teamName);
+        for(int i = 0; i < n1; i++) {
+            fprintf(rout, " ");
+        }
+        fprintf(rout, "-  %.2f\n", p->teamPoints);
+
+        p = p->next;
+    }
+    return;
 }
 
 #pragma endregion functions
