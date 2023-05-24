@@ -183,5 +183,19 @@ void displayWinners(team_t *winners, int *n, FILE *rout) {
     }
     return;
 }
+/*
+team_t *reverseStack(team_t *lastEight) {
+    team_t *newStack = (team_t *)malloc(sizeof(team_t));
+    while (!isEmptyStack(lastEight)) {
+        push(&newStack, lastEight);
+        pop(&lastEight);
+    }
+    return newStack;
+}
+*/
+/////////////////////////////////////////////////////////////////////////
+// FUNCTII PENTRU INVERSAREA ORDINII ELEMENTELOR IN STIVA
+//////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////
 #pragma endregion functions
