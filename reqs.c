@@ -59,7 +59,7 @@ void task3(team_t *head_ref, FILE *rout, int teamNum) {
         displayWinners(wTeams, &n, rout);
 
         if (teamNum == 8) {
-            
+        
         }
         n++;
         teamNum /= 2;
