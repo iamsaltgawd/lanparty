@@ -22,12 +22,13 @@ int main(int argc, char *argv[]) /// argv[1] = c.in; argv[2] = d.in; argv[3] = r
     
     task2(&head, &teamNum);
 
-    if (tasks[1] == 1 && tasks[0] == 1) {
-
+    if (tasks[1] == 1) {
         displayTeams(head, rout);
     }
 
-
+    if (tasks[2] == 1) {
+        task3(head, rout);
+    }
     fclose(rout);
     return 0;
 }

@@ -6,7 +6,7 @@ void task1(team_t **head_ref, char *arg, int *n) {
     FILE *pf = fopen(arg, "rt");
     if (pf == NULL) {
         fprintf(stderr, "nu merge fisieru");
-        exit -1;
+        exit(-1);
     }
 
     fscanf(pf, "%d", n);
@@ -39,9 +39,21 @@ void task2(team_t **head_ref, int *n) {
         (*n)--;
     }
 
-void task3() {
-    
+    return;
 }
 
-    return;
+void task3(team_t *head_ref, FILE *rout) {
+    queue_t *queue = createQueue();
+    team_t *p = head_ref;
+    while (p != NULL) {
+        enQueue(queue, p, p->next);
+        p = p->next->next;
+    }
+    match_t *aux;
+    while (!isEmpty(queue)){
+		aux = queue->front;
+		queue->front = queue->front->next;
+        fprintf(rout, "\n%s\n%s\n", aux->team1->teamName, aux->team2->teamName);
+    }
+    
 }
