@@ -12,6 +12,7 @@ void addAtBeginning(team_t **head_ref, FILE *in_ref) {
     fgetc(in_ref);
     fgets(buffer, 255, in_ref);
     buffer[strlen(buffer) - 1] = '\0';
+#pragma region fix \r problems
     if (buffer[strlen(buffer) - 1] == ' ') {
         buffer[strlen(buffer) - 1] = '\0';
     }
@@ -21,6 +22,7 @@ void addAtBeginning(team_t **head_ref, FILE *in_ref) {
     if (buffer[strlen(buffer) - 1] == '\r') {
         buffer[strlen(buffer) - 1] = '\0';
     }
+#pragma endregion fix \r problems
     newTeam->teamName = (char *)malloc((strlen(buffer) + 1) * sizeof(char));
     strcpy(newTeam->teamName, buffer);
     newTeam->players = (player_t *)malloc(newTeam->playerNum * sizeof(player_t));
