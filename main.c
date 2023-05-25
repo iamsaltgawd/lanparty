@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) /// argv[1] = c.in; argv[2] = d.in; argv[3] = r
         displayTeams(head, rout);
     }
     if (tasks[2] == 1) {
-        task3(head, rout, teamNum, &lastEight);
+        task3(head, rout, teamNum/*, &lastEight*/);
         //lastEight = reverseStack(lastEight);
     }
     free(tasks);
