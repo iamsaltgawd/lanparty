@@ -56,15 +56,18 @@ void task3(team_t *head_ref, FILE *rout, int teamNum, team_t **lastEight) {
         }
         wTeams = NULL;
         displayMatch(queue, rout, &n, &wTeams);
-        displayWinners(wTeams, &n, rout);
+
+        teamNum /= 2;
         
         if (teamNum == 8) {
             *lastEight = (team_t *)malloc(sizeof(team_t));
-            memcpy(*lastEight, wTeams, 8 * sizeof(team_t));
+            memcpy(*lastEight, wTeams, sizeof(team_t));
+       
         }
+
+        displayWinners(wTeams, &n, rout);
+        n++; 
         
-        n++;
-        teamNum /= 2;
     }
     free(wTeams);
     free(queue);
